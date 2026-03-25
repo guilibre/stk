@@ -1,14 +1,15 @@
-cmake_minimum_required(VERSION 3.1) ##TODO: which version is better
+cmake_minimum_required(VERSION 3.10) ##TODO: which version is better
 
 project(STK VERSION 4.6.1)
-set (CMAKE_CXX_STANDARD 11)
+set (CMAKE_CXX_STANDARD 23)
+set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
-if(NOT CMAKE_BUILD_TYPE) 
+if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build." FORCE)
 endif()
-SET_PROPERTY(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Release" "Debug" "RelWithDebInfo" "MinSizeRel") 
+SET_PROPERTY(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Release" "Debug" "RelWithDebInfo" "MinSizeRel")
 message("Build type: " ${CMAKE_BUILD_TYPE})
 
 if(MSVC)
@@ -25,7 +26,7 @@ if(${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
 endif()
 
 option(BUILD_SHARED "Whether to build the shared library" ON)
-option(BUILD_STATIC "Whether to build the static library" ON)
+option(BUILD_STATIC "Whether to build the static library" OFF)
 option(REALTIME "Realtime support" ON)
 option(ENABLE_JACK "Enable JACK" ON)
 option(ENABLE_ALSA "Enable ALSA API support (linux only)" ON)
@@ -142,7 +143,7 @@ if(REALTIME)
             link_libraries(mfuuid mfplat wmcodecdspuuid ksuser)
             add_definitions(-D__WINDOWS_WASAPI__)
         endif()
-        
+
         if(ENABLE_DS)
             message("ENALBING Directsound")
             link_libraries(dsound)
