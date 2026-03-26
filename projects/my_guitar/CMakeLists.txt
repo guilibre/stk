@@ -1,4 +1,4 @@
-project(eguitar)
+project(my_guitar)
 
 file(GLOB MY_GUITAR_SRC "./*.cpp")
 
